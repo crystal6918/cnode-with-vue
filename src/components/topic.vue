@@ -1,5 +1,6 @@
 <template>
 	<div class="container">
+		<czHead></czHead>
 		<div class="main">
 			<div class="header">
 				<span v-bind:class="getTag(topic.top,topic.good,topic.tab,true)">{{getTag(topic.top,topic.good,topic.tab,false)}}</span>
@@ -28,7 +29,7 @@
 <script>
 import $ from 'webpack-zepto';
 import util from '../lib/util';
-
+import czHead from './header'
 export default {
   data:function(){
   	return{
@@ -56,7 +57,10 @@ export default {
   	getTimeStr(time){
       return util.getTimeStr(time);
   	},
-  }
+  },
+  	components:{
+		czHead
+	}
 }
 
 </script>
@@ -78,6 +82,7 @@ export default {
 	}
 	.main{
 		@include basic;
+		margin-top:40px;
 		
 		.header {
 			margin-bottom:10px;

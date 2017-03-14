@@ -48,4 +48,5 @@ export default {
   		}
   		return isClass?className:str;
   	},
+  	
 }

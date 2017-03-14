@@ -1,5 +1,7 @@
 <template>
+
  	<section>
+    <czHead ></czHead>
  		<ul>
  			<li class="topicItem" v-for="topic in topics" v-on:click="toTopic(topic.id)">
 				<img class="img-little" v-bind:src = "topic.author.avatar_url">
@@ -18,6 +20,7 @@
 <script>
 import $ from 'webpack-zepto';
 import util from '../lib/util';
+import czHead from './header';
 export default {
   data:function(){
   	return{
@@ -61,7 +64,10 @@ export default {
         name:'topic',
         params:{id:id}
       });
-    }
+    },
+  },
+  components:{
+    czHead
   }
 }
 </script>
@@ -72,6 +78,9 @@ export default {
     padding:0;
     margin:0;
     box-sizing:border-box;
+  }
+  ul{
+    margin-top:40px;
   }
   .img-little{
       width:50px;
