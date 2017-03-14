@@ -1,7 +1,7 @@
 <template>
 
  	<section>
-    <czHead ></czHead>
+    <czHead ref="head"></czHead>
  		<ul>
  			<li class="topicItem" v-for="topic in topics" v-on:click="toTopic(topic.id)">
 				<img class="img-little" v-bind:src = "topic.author.avatar_url">
@@ -26,18 +26,30 @@ export default {
   	return{
   		topics:[],
   		index:{}, //用于查看是否有重复的topic
+      searchKey:{
+        page:1,
+        tab:'all',
+        limit:20
+      },
+      scroll:false
   	}
 
   },
   mounted:function(){
+    if (this.$route.query && this.$route.query.tab) {
+        this.searchKey.tab = this.$route.query.tab;
+    }
   	this.getTopics();
+    $(window).on('scroll',this.getScrollData)
   },
   methods:{
   	//ajax获得全部资源
   	getTopics(){
-  		$.get(' https://cnodejs.org/api/v1/topics ',(d)=>{
+  		$.get(' https://cnodejs.org/api/v1/topics?'+$.param(this.searchKey),(d)=>{
   			if(d && d.data){
+          console.log(this.searchKey.tab);
   				d.data.forEach(this.dealTopics);
+          this.scroll = true;
   			}
   		})
   	},
@@ -65,7 +77,30 @@ export default {
         params:{id:id}
       });
     },
+    getScrollData(){
+        if(this.scroll){
+          if($(window).height()+$(window).scrollTop() + 50 >= $(document).height()){
+            this.scroll = false;
+            this.searchKey.page++;
+            this.getTopics();
+          }
+      }
+      
+    }
   },
+  watch: {
+            // 监听路由变化
+            '$route' (to, from) {
+                if (to.query && to.query.tab) {
+                    this.searchKey.tab = to.query.tab;
+                    this.topics = [];
+                    this.index = {};
+                }
+                this.searchKey.page = 1;
+                this.getTopics();
+                this.$refs.head.isOpen = false;
+            }
+        },
   components:{
     czHead
   }
