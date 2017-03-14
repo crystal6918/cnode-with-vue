@@ -38,6 +38,10 @@ module.exports = {
         }
       },*/
       {
+        test:/\.sass$/,
+        loader:'sass-loader',
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
