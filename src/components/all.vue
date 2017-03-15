@@ -40,7 +40,7 @@ export default {
         this.searchKey.tab = this.$route.query.tab;
     }
   	this.getTopics();
-    $(window).on('scroll',this.getScrollData)
+    $(window).on('scroll',this.debounce(this.getScrollData,500))
   },
   methods:{
   	//ajax获得全部资源
@@ -78,6 +78,7 @@ export default {
       });
     },
     getScrollData(){
+
         if(this.scroll){
           if($(window).height()+$(window).scrollTop() + 50 >= $(document).height()){
             this.scroll = false;
@@ -86,10 +87,22 @@ export default {
           }
       }
       
+    },
+    debounce(fn,delay){
+      let timer = null;
+      return function(){
+        let context = this;
+        let args = arguments;
+        clearTimeout(timer);
+        timer = setTimeout(function(){
+          fn.apply(context,args);
+        },delay)
+      }
     }
   },
   watch: {
-            // 监听路由变化
+            // 由于多个路由匹配同一个组件，因此在切换分类时组件并不会重新渲染
+            //因此通过watch $route 对象来对参数的变化作出响应，相当于手动渲染页面
             '$route' (to, from) {
                 if (to.query && to.query.tab) {
                     this.searchKey.tab = to.query.tab;
