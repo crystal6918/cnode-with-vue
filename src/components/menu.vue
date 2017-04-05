@@ -31,6 +31,7 @@ export default {
 		width:150px;
 		padding:10px;
 		z-index:2;
+		transition:all 0.5s;
 
 		&.open{
 			left:0;

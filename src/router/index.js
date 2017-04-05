@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import preLoader from '@/components/preLoader'
 import all from '@/components/all'
 import topic from '@/components/topic'
-//import about from '@/components/about'
+import login from '@/components/login'
 
 Vue.use(Router)
 
@@ -24,11 +24,10 @@ export default new Router({
     	name:'topic',
     	component:topic
     },
-    /*
     {
-    	path:'/about',
-    	name:'about',
-    	component:about
-    }*/
+    	path:'/login',
+    	name:'login',
+    	component:login
+    }
   ]
 })

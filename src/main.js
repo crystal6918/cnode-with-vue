@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
+import store from './vuex/user'
 
 Vue.config.productionTip = false
 
@@ -10,5 +11,6 @@ $.ajaxSettings.crossDomain = true;
 
 new Vue({
   el: '#app',
-  router
+  router,
+  store
 })

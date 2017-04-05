@@ -1,9 +1,12 @@
 <template>
  	<div class="header" v-bind:class="{open:isOpen}">
  		<div class="dark" v-if="isOpen" v-on:click="closeMenu()"></div>
- 		<czMenu v-bind:isOpen="isOpen"></czMenu>
+ 		<transition name = "fade">
+ 			<czMenu v-bind:isOpen="isOpen"></czMenu>
+ 		</transition>
  		<img v-on:click="openMenu()" src="../assets/menu.png">
  		<span >{{name}}</span>
+ 		<img class="img-right" v-on:click="openLogin()" src="../assets/login.png">
  	</div>
 </template>
 
@@ -31,8 +34,11 @@ export default {
   				case "topic":
   				str = "主题"
   				break;
+  				case "login":
+  				str = "登录"
+  				break;
   				default:
-  				str = "主题"
+  				str = ""
   				break;
   			}
   			this.name = str;
@@ -42,6 +48,9 @@ export default {
   		},
   		closeMenu(){
   			this.isOpen = false;
+  		},
+  		openLogin(){
+  			this.$router.push('login');
   		}
 
 	},
@@ -63,6 +72,7 @@ export default {
 		z-index:100;
 		padding:10px;
 		box-shadow:0px 2px 2px 0px #e7e7e7; 
+		transition:all 0.5s;
 		
 		&.open{
 			left:150px;
@@ -93,6 +103,9 @@ export default {
     		top:10px;
     		left:0;
     		z-index: -1;
+		}
+		.img-right{
+			float:right;
 		}
 	}
 </style>
