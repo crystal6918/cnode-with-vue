@@ -2,7 +2,7 @@
 
 > A Vue.js project
 
-##Introduction
+## Introduction
 
 使用vue-cli搭建的环境，使用vue、vue-router、vuex实现cnode的简易功能，包括：首页查看所有帖子（根据tag筛选资源）、查看具体帖子及其回复、登录。
 
